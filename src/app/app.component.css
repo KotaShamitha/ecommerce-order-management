@@ -1,0 +1,18 @@
+nav {
+    background-color: #333;
+    padding: 10px;
+}
+
+nav a, nav button {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+    padding: 5px 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+nav a:hover, nav button:hover {
+    text-decoration: underline;
+}
