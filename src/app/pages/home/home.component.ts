@@ -8,7 +8,7 @@ import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

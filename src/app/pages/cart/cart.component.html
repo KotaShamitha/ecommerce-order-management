@@ -1,1 +1,42 @@
-<p>cart works!</p>
+<div class="cart-container">
+    <h2>Your Shopping Cart</h2>
+  
+    <div *ngIf="cartItems.length === 0" class="empty-cart">
+      <p>Your cart is empty.</p>
+    </div>
+  
+    <div *ngIf="cartItems.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cartItems">
+            <td>{{ item.name }}</td>
+            <td>{{ item.price | currency }}</td>
+            <td>
+              <button (click)="updateQuantity(item, item.quantity - 1)" [disabled]="item.quantity <= 1">-</button>
+              <span>{{ item.quantity }}</span>
+              <button (click)="updateQuantity(item, item.quantity + 1)">+</button>
+            </td>
+            <td>{{ item.price * item.quantity | currency }}</td>
+            <td>
+              <button class="remove-btn" (click)="removeFromCart(item.id)">Remove</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <div class="cart-summary">
+        <h3>Total: {{ getTotal() | currency }}</h3>
+        <button class="checkout-btn" (click)="placeOrder()">Place Order</button>
+      </div>
+    </div>
+  </div>
+  

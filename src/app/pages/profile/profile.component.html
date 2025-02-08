@@ -1,1 +1,23 @@
-<p>profile works!</p>
+<div class="profile-container">
+    <h2>My Profile</h2>
+    
+    <form (submit)="saveProfile()">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" [(ngModel)]="user.name" required>
+  
+      <label for="email">Email</label>
+      <input type="email" id="email" [(ngModel)]="user.email" readonly>
+  
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" [(ngModel)]="user.phone" required>
+  
+      <label for="address">Address</label>
+      <textarea id="address" [(ngModel)]="user.address" required></textarea>
+  
+      <label for="pinCode">Pin Code</label>
+      <input type="text" id="pinCode" [(ngModel)]="user.pinCode" required>
+  
+      <button type="submit">Save Profile</button>
+    </form>
+  </div>
+  

@@ -20,8 +20,14 @@ export class AuthService {
   user$ = this.currentUserSubject.asObservable();
 
   constructor() {
-    onAuthStateChanged(this.auth, (user) => {
+    onAuthStateChanged(this.auth, async (user) => {
       this.currentUserSubject.next(user);
+      if (user) {
+        const userProfile = await this.getUserProfile(user.uid);
+        if (!userProfile || !userProfile.name) {
+          this.router.navigate(['/profile']); 
+        }
+      }
     });
   }
 
@@ -32,7 +38,7 @@ export class AuthService {
     const userProfile: AppUser = {
       uid: user.uid,
       email: user.email!,
-      name,
+      name: name || "",
       phone: '',
       address: '',
       pinCode: '',
@@ -44,7 +50,30 @@ export class AuthService {
   }
 
   async login(email: string, password: string) {
-    return await signInWithEmailAndPassword(this.auth, email, password);
+    const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
+    const user = userCredential.user;
+
+    const userDoc = await getDoc(doc(this.firestore, `users/${user.uid}`));
+    
+    if (!userDoc.exists()) {
+      await setDoc(doc(this.firestore, `users/${user.uid}`), {
+        uid: user.uid,
+        email: user.email,
+        name: '',
+        phone: '',
+        address: '',
+        pinCode: '',
+        role: 'user',
+      });
+      this.router.navigate(['/profile']); 
+    } else {
+      const userData = userDoc.data();
+      if (!userData['name'] || !userData['address']) {
+        this.router.navigate(['/profile']); 
+      } else {
+        this.router.navigate(['/home']); 
+      }
+    }
   }
 
   async logout() {
@@ -63,6 +92,11 @@ export class AuthService {
 
   getUserID(): string | null {
     return this.auth.currentUser ? this.auth.currentUser.uid : null;
+  }
+
+  async getUserRole(uid: string): Promise<string> {
+    const userProfile = await this.getUserProfile(uid);
+    return userProfile && userProfile.role ? userProfile.role : 'user';
   }
 }
 

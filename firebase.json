@@ -1,10 +1,7 @@
 {
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  },
   "hosting": {
-    "public": "public",
+    "site": "ecom-order-management-8d884",
+    "public": "dist/ecommerce",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -16,8 +13,6 @@
         "destination": "/index.html"
       }
     ]
-  },
-  "storage": {
-    "rules": "storage.rules"
   }
 }
+

@@ -1,1 +1,52 @@
-<p>admin works!</p>
+<div class="admin-container">
+    <h2>Admin Dashboard</h2>
+  
+    <div class="orders-container">
+      <h3>Orders Management</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>User</th>
+            <th>Total Price</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders$ | async">
+            <td>{{ order.id }}</td>
+            <td>{{ order.userId }}</td>
+            <td>{{ order.totalPrice | currency }}</td>
+            <td>
+              <select [(ngModel)]="order.status">
+                <option value="Placed">Placed</option>
+                <option value="Processing">Processing</option>
+                <option value="On the way">On the way</option>
+                <option value="Delivered">Delivered</option>
+              </select>
+            </td>
+            <td>
+              <button (click)="updateOrderStatus(order.id, order.status || 'Placed')">Update</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="inventory-container">
+      <h3>Inventory Management</h3>
+      <div class="product-list">
+        <div class="product-card" *ngFor="let product of productService.getProducts() | async">
+          <h4>{{ product.name }}</h4>
+          <p>Price: {{ product.price | currency }}</p>
+          <div class="quantity-controls">
+            <button (click)="updateProductQuantity(product.id || '', product.quantity - 1)">-</button>
+            <span>{{ product.quantity }}</span>
+            <button (click)="updateProductQuantity(product.id!, product.quantity + 1)">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

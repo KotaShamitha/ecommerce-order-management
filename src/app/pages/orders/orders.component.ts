@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-orders',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css'
 })

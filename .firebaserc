@@ -1,5 +1,16 @@
 {
   "projects": {
     "default": "ecom-order-management-8d884"
-  }
+  },
+  "targets": {
+    "ecom-order-management-8d884": {
+      "hosting": {
+        "myapp": [
+          "ecom-order-management",
+          "ecom-order-management-8d884"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

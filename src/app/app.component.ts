@@ -4,6 +4,7 @@ import { AuthService } from './services/auth.service';
 import { Router, RouterOutlet } from '@angular/router';
 import { profile } from 'console';
 
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, CommonModule],

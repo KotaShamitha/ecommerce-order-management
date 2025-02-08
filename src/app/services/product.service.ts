@@ -38,4 +38,9 @@ export class ProductService {
       await updateDoc(productRef, { quantity: productDoc['quantity'] - quantity });
     }
   }
+
+  updateProductQuantity(productId: string, newQuantity: number): Promise<void> {
+    const productDocRef = doc(this.firestore, `products/${productId}`);
+    return updateDoc(productDocRef, { quantity: newQuantity });
+  }
 }

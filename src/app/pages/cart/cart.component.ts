@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-cart',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
@@ -38,6 +38,20 @@ export class CartComponent {
     };
   
     this.orderService.placeOrder(order);
+  }
+
+  updateQuantity(product: Product, newQuantity: number) {
+    if (newQuantity < 1) return; 
+    product.quantity = newQuantity;
+    this.cartService.addToCart(product); 
+  }
+  
+  removeFromCart(productId: string | undefined) {
+    if (!productId) {
+      console.error("Product ID is undefined! Cannot remove from cart.");
+      return;
+    }
+    this.cartService.removeFromCart(productId);
   }
 
 }
