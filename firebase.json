@@ -1,6 +1,5 @@
 {
   "hosting": {
-    "site": "ecom-order-management-8d884",
     "public": "dist/ecommerce",
     "ignore": [
       "firebase.json",
@@ -13,6 +12,9 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   }
 }
-
